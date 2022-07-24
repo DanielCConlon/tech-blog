@@ -2,31 +2,42 @@ const router = require('express').Router();
 const { Post, Comment, User } = require('../models/');
 
 // get all posts for homepage
-router.get('/', async (req, res) => {
-  try {
-    // we need to get all Posts and include the User for each (change lines 8 and 9)
-    const postData = await Post.findAll({
-      attributes: [
-        'id',
-        'post_url',
-        'title',
-        'created_at'
-      ],
-      include: [
-        {
+router.get('/', (req, res) => {
+  Post.findAll({
+    attributes: [
+      'id',
+      'post_url',
+      'title',
+      'created_at'
+    ],
+    include: [
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
           model: User,
           attributes: ['username']
         }
-      ]
+      },
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
+  })
+    .then(dbPostData => {
+      const posts = dbPostData.map(post => post.get({ plain: true }));
+
+      res.render('all-posts', {
+        posts,
+        loggedIn: req.session.loggedIn
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
     });
-    // serialize the data
-    const posts = postData.map((post) => post.get({ plain: true }));
-    // we should render all the posts here
-    res.render('all-posts', { posts });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+})
 
 // get single post
 router.get('/post/:id', async (req, res) => {
