@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { Post } = require('../../models/');
+const { Post, User, Comment, Vote } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
   Post.findAll({
     attributes: [
       'id',
@@ -10,6 +10,7 @@ router.post('/', (req, res) => {
       'title',
       'created_at'
     ],
+
     include: [
       {
         model: Comment,
@@ -19,53 +20,21 @@ router.post('/', (req, res) => {
           attributes: ['username']
         }
       },
+
       {
         model: User,
         attributes: ['username']
       }
     ]
   })
-    .then(dbPostData => res.json(dbPostData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.put('/:id', withAuth, async (req, res) => {
-  try {
-    const [affectedRows] = await Post.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    if (affectedRows > 0) {
-      res.status(200).end();
-    } else {
-      res.status(404).end();
-    }
-  } catch (err) {
+  .then(dbPostData => res.json(dbPostData))
+  .catch(err => {
+    console.log(err);
     res.status(500).json(err);
-  }
+  });
 });
 
-router.delete('/:id', withAuth, async (req, res) => {
-  try {
-    const [affectedRows] = Post.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
 
-    if (affectedRows > 0) {
-      res.status(200).end();
-    } else {
-      res.status(404).end();
-    }
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+
 
 module.exports = router;
