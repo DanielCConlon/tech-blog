@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     // serialize the data
     const posts = postData.map((post) => post.get({ plain: true }));
     // we should render all the posts here
-    res.render('main', { posts });
+    res.render('all-posts', { posts });
   } catch (err) {
     res.status(500).json(err);
   }
