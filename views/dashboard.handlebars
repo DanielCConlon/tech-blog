@@ -1,0 +1,23 @@
+  <main class="col-auto">
+    {{#if posts.length}}
+      <section>
+        <h2>Your Posts</h2>
+        <ol>
+          {{#each posts as |post|}}
+          <li>
+            {{> post-info post}}
+            <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
+          </li>
+          {{/each}}
+        </ol>
+      </section>
+    {{/if}}
+  </main>
+
+  <footer class="footer flex-row justify-center">
+    <a href="/dashboard/new">➕ New Post</a>
+  </footer>
+
+<script src="/js/new-post.js"></script>
+<script src="/js/logout.js"></script>
+
