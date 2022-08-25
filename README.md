@@ -66,3 +66,5 @@ sequelize
 ## [Usage](#table-of-contents)
 
 After you have installed all of the packages above you will need to setup a .env file to setup a local database. To run it locally you can run node server. To seed the database to have dummy data you can type node seeds/index.js. After the server is running you can go to http://localhost:3001/ and use the blog.
+
+![Website image](./public/css/tech-blog.PNG)
