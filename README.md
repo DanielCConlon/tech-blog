@@ -1,6 +1,9 @@
 # tech-blog
 
-Heroku URL: https://safe-gorge-07664.herokuapp.com/
+Heroku URL: updating heroku deployment
+
+<!-- https://safe-gorge-07664.herokuapp.com/ -->
+
 Github URL: https://github.com/DanielCConlon/tech-blog
 
 ## Table-of-Contents
