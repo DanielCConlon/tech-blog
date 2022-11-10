@@ -1,8 +1,6 @@
 # tech-blog
 
-Heroku URL: updating heroku deployment
-
-<!-- https://safe-gorge-07664.herokuapp.com/ -->
+Heroku URL: https://protected-atoll-68410.herokuapp.com/
 
 Github URL: https://github.com/DanielCConlon/tech-blog
 
